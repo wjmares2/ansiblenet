@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - name: "Demonstrate connecting to switches"
   hosts: switches
   gather_facts: no
@@ -81,3 +82,6 @@
         src: "{{ backup_vyos_location.backup_path }}"
         dest: "/tmp/backups/{{ inventory_hostname }}/{{ inventory_hostname }}.bck"
       when: ansible_network_os == 'cisco.nxos.nxos'
+=======
+
+>>>>>>> 9dc35d2afa84af0df47094d16695d344a14a35f9
