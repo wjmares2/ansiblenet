@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 - name: "Demonstrate connecting to switches"
-  hosts: switches
+  hosts: layer3
   gather_facts: no
 
   tasks:
@@ -54,15 +54,15 @@
     #
 
     - name: Backup switch (ios)
-      arista.eos.eos_config:
+      cisco.ios.ios_config:
         backup: yes
-      register: backup_eos_location
+      register: backup_ios_location
       when: ansible_network_os == 'cisco.ios.ios'
 
     - name: backup switch (nxos)
-      vyos.vyos.vyos_config:
+      cisco.nxos.nxos_config:
         backup: yes
-      register: backup_vyos_location
+      register: backup_nxos_location
       when: ansible_network_os == 'cisco.nxos.nxos'
 
     - name: Create backup dir
@@ -73,13 +73,13 @@
 
     - name: Copy backup files into /tmp/backups/ (ios)
       copy:
-        src: "{{ backup_eos_location.backup_path }}"
+        src: "{{ backup_ios_location.backup_path }}"
         dest: "/tmp/backups/{{ inventory_hostname }}/{{ inventory_hostname }}.bck"
       when: ansible_network_os == 'cisco.ios.ios'
 
     - name: Copy backup files into /tmp/backups/ (nxos)
       copy:
-        src: "{{ backup_vyos_location.backup_path }}"
+        src: "{{ backup_nxos_location.backup_path }}"
         dest: "/tmp/backups/{{ inventory_hostname }}/{{ inventory_hostname }}.bck"
       when: ansible_network_os == 'cisco.nxos.nxos'
 =======
